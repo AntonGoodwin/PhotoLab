@@ -9,7 +9,7 @@ export class StatisticController {
       if (Number.isNaN(chatId)) {
         return next(new Error("Invalid chat ID"));
       }
-      const top = req.query.top ? Number(req.query.top) : 10;
+      const top = req.query.top && !Number.isNaN(Number(req.query.top)) ? Number(req.query.top) : 10;
       const stat = await statisticService.getTopWritersStatistic(chatId, top);
       res.status(200).json(stat);
     } catch (error) {
